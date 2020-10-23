@@ -1,0 +1,10 @@
+关闭selinux和防火墙
+# vim /etc/selinux/config  SELINUX=disabled
+getenforce 测试
+
+systemctl stop firewalld
+systemctl disable firewalld
+
+关闭swap
+vim /etc/fstab   将swap注视掉，重启生效
+
