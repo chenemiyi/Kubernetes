@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-10-21T11:34:09Z"
+  labels:
+    mysql.oracle.com/cluster: mycluster
+    tier: mysql
+  name: mycluster
+  namespace: default
+  ownerReferences:
+  - apiVersion: mysql.oracle.com/v2alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: InnoDBCluster
+    name: mycluster
+    uid: aa3d6707-4b4b-4824-b32a-59d868e50baa
+  resourceVersion: "232091"
+  selfLink: /api/v1/namespaces/default/services/mycluster
+  uid: 1fbbe654-f794-46a1-a27c-d5c60b417409
+spec:
+  clusterIP: 10.254.71.140
+  ports:
+  - name: mysql
+    port: 6446  ##多端口通信
+    protocol: TCP
+    targetPort: 6446  
+  - name: mysqlx
+    port: 6448
+    protocol: TCP
+    targetPort: 6448
+  - name: mysql-ro
+    port: 6447
+    protocol: TCP
+    targetPort: 6447
+  - name: mysqlx-ro
+    port: 6449
+    protocol: TCP
+    targetPort: 6449
+  selector:
+    component: mysqlrouter
+    mysql.oracle.com/cluster: mycluster
+    tier: mysql
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
